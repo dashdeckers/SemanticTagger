@@ -17,6 +17,9 @@ def preprocess(sentence, token_to_idx, download=False):
 
     Returns:
         torch.LongTensor: The preprocessed sentence as an index tensor.
+
+    Raises:
+        KeyError: If the word is not in the vocabulary.
     """
     if download:
         stanza.download('en')
@@ -28,7 +31,8 @@ def preprocess(sentence, token_to_idx, download=False):
     try:
         token_indices = [token_to_idx[token] for token in tokens]
     except KeyError:
-        print(tokens)
-        return None
+        problematic_tokens = [t for t in tokens if t not in token_to_idx]
+        print('Token not in vocabulary:', problematic_tokens)
+        raise KeyError
 
     return torch.LongTensor(token_indices)
