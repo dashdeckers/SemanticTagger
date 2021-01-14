@@ -71,5 +71,10 @@ tag_dict = {
     "DOW": 69,
     "MOY": 70,
     "DEC": 71,
-    "CLO": 72
+    "CLO": 72,
+    "PRX": 73,
+    "DST": 74,
+    "APX": 75,
+    "GEO": 76,
+    "EFS": 77
 }
