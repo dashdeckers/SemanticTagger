@@ -1,26 +1,37 @@
-def get_training_data_generator(fn='train.conll.txt'):
-    """Returns a generator that iterates over sentences and labels.
+import random
+
+
+def get_data(fn='train.conll.txt', perc_train=20):
+    """Returns the data, splitted into test/train according to perc_train.
 
     Args:
-        fn (str): Description of parameter `fn`.
+        fn (str): The file name of the data file.
+        perc_train (int): The percentage of the dataset to use for training.
 
     Returns:
-        generator: A generator that iterates over sentences and labels.
-
-    Examples
-        >>> generator = get_training_data()
-        >>> print(next(generator))
+        Tuple[List[List[Tuple[str, str]]]]: The (train, test) splitted dataset
+            as lists of sentences, where each sentence is a list tuples with
+            the words and their corresponding labels.
     """
-    batch = list()
+    sentences = list()
+    curr_sentence = list()
+
     with open(fn, 'r') as data_fileobject:
         for line in data_fileobject:
 
-            # if the line is relevant
+            # If the line is relevant
             if not (line == '\n' or line.startswith('#')):
                 elements = line.split()
-                batch.append((elements[0], elements[2]))
+                curr_sentence.append((elements[0], elements[2]))
 
-            # if the next sentence starts
-            if line.startswith('#') and len(batch) > 0:
-                yield batch
-                batch = list()
+            # If the next sentence starts
+            if line.startswith('#') and len(curr_sentence) > 0:
+                sentences.append(curr_sentence)
+                curr_sentence = list()
+
+    # Shuffle, then split the data into test/train
+    random.shuffle(sentences)
+    split_idx = int(len(sentences) / 100 * perc_train)
+
+    # (train, test)
+    return sentences[:split_idx], sentences[split_idx:]

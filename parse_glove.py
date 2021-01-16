@@ -28,16 +28,16 @@ def read_glove_file(fn='glove.42B.300d.txt', n_lines=500_000, n_dims=300):
     with open(fn, 'r') as glove_fileobject:
         for index, line in enumerate(glove_fileobject):
 
-            # stop early
+            # Stop early
             if index >= n_lines:
-                # convert matrix to torch embedding layer
+                # Convert matrix to torch embedding layer
                 tensor = torch.FloatTensor(matrix)
                 glove = torch.nn.Embedding.from_pretrained(tensor)
-                # the embedding layer is fixed, so don't let it train
+                # The embedding layer is fixed, so don't let it train
                 glove.weight.requires_grad = False
                 return glove, token_to_idx
 
-            # parse the line, fill the matrix
+            # Parse the line, fill the matrix
             token, *vector = line.split()
             matrix[index] = np.asarray(vector, dtype='float')
             token_to_idx[token] = index
