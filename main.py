@@ -107,10 +107,14 @@ for tag, idx in tag_to_idx.items():
 print(f'Global Accuracy: {cm.trace() / cm.sum()}')
 pprint.pprint(prdict)
 
+plt.clf()
 plt.matshow(cm, cmap='binary')
 plt.title(f'Confusion matrix for {len(tag_to_idx)} tags')
+plt.savefig('confusion_matrix.png')
 plt.show()
 
+plt.clf()
 plt.plot(range(max_epochs), losses)
 plt.title('Normalized loss as a function of training epoch')
+plt.savefig('loss_per_epoch.png')
 plt.show()
