@@ -18,6 +18,7 @@ random.seed(111)
 
 # If running this script for the first time on your computer, uncomment this
 # stanza.download('en')
+# stanza_nlp = stanza.Pipeline('en')
 
 # Create the embedding layer
 glove_layer, token_to_idx = read_glove_file()
