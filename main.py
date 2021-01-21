@@ -18,6 +18,7 @@ random.seed(111)
 
 # If running this script for the first time on your computer, uncomment this
 # stanza.download('en')
+# stanza_nlp = stanza.Pipeline('en')
 
 # Create the embedding layer
 glove_layer, token_to_idx = read_glove_file()
@@ -107,12 +108,16 @@ for tag, idx in tag_to_idx.items():
 print(f'Global Accuracy: {cm.trace() / cm.sum()}')
 pprint.pprint(prdict)
 
+plt.clf()
 plt.matshow(cm, cmap='binary')
 plt.title(f'Confusion matrix for {len(tag_to_idx)} tags')
+plt.savefig('confusion_matrix.png')
 plt.show()
 
+plt.clf()
 plt.plot(range(max_epochs), losses)
 plt.title('Normalized Cross Entropy loss as a function of training epoch')
 plt.ylabel('Loss')
 plt.xlabel('Epoch')
+plt.savefig('loss_per_epoch.png')
 plt.show()
