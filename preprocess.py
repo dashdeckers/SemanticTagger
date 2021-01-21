@@ -60,7 +60,14 @@ def preprocess(
                 print(f'ERROR: {token.text} not in vocabulary!')
 
     # Label indices of final labels of tokenized sentence
-    label_indices = [tag_to_idx.get(tag, DEF_TAG) for tag in out_labels]
+    label_indices = list()
+    for tag in out_labels:
+
+        # Print any tags not in tag_to_idx
+        if tag not in tag_to_idx:
+            print(f'ERROR (TAG): {tag} not in tag_to_idx!')
+
+        label_indices.append(tag_to_idx.get(tag, DEF_TAG))
 
     return (
         torch.as_tensor(out_indices, dtype=torch.int64),
