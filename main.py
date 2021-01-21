@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 from tag_dict import tag_to_idx
 from parse_glove import read_glove_file
-from parse_data import get_data
+from parse_data import get_data_xml
 from preprocess import preprocess
 from model import SemTag
 
@@ -18,7 +18,6 @@ random.seed(111)
 
 # If running this script for the first time on your computer, uncomment this
 # stanza.download('en')
-# stanza_nlp = stanza.Pipeline('en')
 
 # Create the embedding layer
 glove_layer, token_to_idx = read_glove_file()
@@ -32,7 +31,7 @@ optimizer = torch.optim.Adam(model.parameters())
 criterion = torch.nn.CrossEntropyLoss()
 
 # Get the data and define loop vars
-train, test = get_data(perc_train=80)
+train, test = get_data_xml(perc_train=80, datasets=['gold'])
 max_epochs = 10
 losses = []
 
