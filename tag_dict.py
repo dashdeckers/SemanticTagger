@@ -77,4 +77,6 @@ tag_to_idx = {
     "APX": 75,
     "GEO": 76,
     "EFS": 77,
+    "UNK": 78,
+    "COM": 79,
 }
