@@ -127,4 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Data files
 glove.42B.300d.txt
+pmb-3.0.0
