@@ -1,5 +1,13 @@
 import torch
 
+# 10 epochs, old data:
+# single-directional: 0.7383
+# bi-directional: 0.7449
+# bi-directional + 2 layers: 0.7834
+
+# 10 epochs, new data:
+# bi-directional + 2 layers: 0.8540
+
 
 class SemTag(torch.nn.Module):
     def __init__(self, embedding_layer, n_tags):
