@@ -100,7 +100,7 @@ for tag, idx in tag_to_idx.items():
         precision = round(cm[idx, idx] / col_sum, 2)
 
     # Save results as (precision, recall, num_occurances)
-    prdict[tag] = (precision, recall, int(row_sum))
+    prdict[tag] = (precision, recall, row_sum)
 
 
 # Show all metrics
