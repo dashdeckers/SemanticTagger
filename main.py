@@ -31,7 +31,7 @@ optimizer = torch.optim.Adam(model.parameters())
 criterion = torch.nn.CrossEntropyLoss()
 
 # Get the data and define loop vars
-train, test = get_data_xml(perc_train=80, datasets=['gold'])
+train, test = get_data_xml(perc_train=90, datasets=['gold', 'silver'])
 max_epochs = 10
 losses = []
 
@@ -100,23 +100,20 @@ for tag, idx in tag_to_idx.items():
         precision = round(cm[idx, idx] / col_sum, 2)
 
     # Save results as (precision, recall, num_occurances)
-    prdict[tag] = (precision, recall, row_sum)
+    # convert from numpy integer to python integer for json serialization
+    prdict[tag] = (int(precision), int(recall), int(row_sum))
 
 
 # Show all metrics
-print(f'Global Accuracy: {cm.trace() / cm.sum()}')
-print(json.dumps(prdict, indent=2, sort_keys=True))
 with open('results.txt', 'w') as out_file:
     out_file.write(f'Global Accuracy: {cm.trace() / cm.sum()}\n\n')
-    out_file.write(json.dumps(prdict, indent=2, sort_keys=True))
+    json.dump(prdict, out_file, indent=4, sort_keys=True)
 
-plt.clf()
 plt.matshow(cm, cmap='binary')
 plt.title(f'Confusion matrix for {len(tag_to_idx)} tags')
 plt.savefig('confusion_matrix.png')
 plt.show()
 
-plt.clf()
 plt.plot(range(max_epochs), losses)
 plt.title('Normalized Cross Entropy loss as a function of training epoch')
 plt.ylabel('Loss')
