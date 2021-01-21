@@ -79,4 +79,5 @@ tag_to_idx = {
     "EFS": 77,
     "UNK": 78,
     "COM": 79,
+    "ACT": 80,
 }
