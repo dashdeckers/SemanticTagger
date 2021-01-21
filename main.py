@@ -1,5 +1,5 @@
 import random
-import pprint
+import json
 
 import numpy as np
 import torch
@@ -105,7 +105,10 @@ for tag, idx in tag_to_idx.items():
 
 # Show all metrics
 print(f'Global Accuracy: {cm.trace() / cm.sum()}')
-pprint.pprint(prdict)
+print(json.dumps(prdict, indent=2, sort_keys=True))
+with open('results.txt', 'w') as out_file:
+    out_file.write(f'Global Accuracy: {cm.trace() / cm.sum()}\n\n')
+    out_file.write(json.dumps(prdict, indent=2, sort_keys=True))
 
 plt.clf()
 plt.matshow(cm, cmap='binary')
