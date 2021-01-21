@@ -112,5 +112,7 @@ plt.title(f'Confusion matrix for {len(tag_to_idx)} tags')
 plt.show()
 
 plt.plot(range(max_epochs), losses)
-plt.title('Normalized loss as a function of training epoch')
+plt.title('Normalized Cross Entropy loss as a function of training epoch')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
 plt.show()
