@@ -5,18 +5,13 @@ class SemTag(torch.nn.Module):
     def __init__(self, embedding_layer, n_tags):
         super(SemTag, self).__init__()
 
-        self.batch_size = 1
-        self.input_dim = 300
-        self.hidden_dim = n_tags  # output one-hot vectors
-        self.n_layers = 1
-
         self.embedding = embedding_layer
         self.lstm = torch.nn.LSTM(
-            input_size=self.input_dim,
-            hidden_size=self.hidden_dim,
-            num_layers=self.n_layers,
+            input_size=300,         # 300 dimensional GloVe embedding
+            hidden_size=n_tags,     # output one-hot encoded vectors
+            num_layers=2,
             batch_first=True,
-            # bidirectional=True
+            bidirectional=True
         )
         self.softmax = torch.nn.Softmax(dim=2)
 
