@@ -31,7 +31,7 @@ optimizer = torch.optim.Adam(model.parameters())
 criterion = torch.nn.CrossEntropyLoss()
 
 # Get the data and define loop vars
-train, test = get_data_xml(perc_train=90, datasets=['gold', 'silver'])
+train, test = get_data_xml(perc_train=90, datasets=['gold'])
 max_epochs = 10
 losses = []
 
